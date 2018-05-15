@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import request from 'superagent';
 
 import Search from './components/Search/Search';
 import GifList from './components/GifList/GifList';
 
 import './App.css';
 
-class App extends React.Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -28,7 +29,11 @@ class App extends React.Component {
   }
 
   handleTermChange(term) {
-    console.log(term);
+    const url = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=dc6zaTOxFJmzC`;
+
+    request.get(url, function(err, res) {
+        console.log(res.body.data[0]);
+    });
   }
 
   render() {
