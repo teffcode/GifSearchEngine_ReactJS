@@ -1,9 +1,9 @@
 import React from 'react';
 
-const GifItem = (image) => {
+const GifItem = ({ gif }) => {
   return (
     <li>
-      <img src={image.gif.url} />
+        <img src={gif.images.downsized.url} />
     </li>
   )
 };
