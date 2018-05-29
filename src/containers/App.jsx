@@ -1,39 +1,22 @@
 import React, { Component } from 'react';
-import request from 'superagent';
+import { connect } from 'react-redux';
 
-import Search from './components/Search/Search';
-import GifList from './components/GifList/GifList';
-
-import './App.css';
+import GifsTemp from '../components/GifsTemp/GifsTemp';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      gifs: []
-    };
-
-    this.handleTermChange = this.handleTermChange.bind(this);
-  }
-
-  handleTermChange(term) {
-    const url = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=dc6zaTOxFJmzC`;
-
-    request.get(url, (err, res) => {
-      this.setState({ gifs: res.body.data })
-    });
-  }
-
   render() {
-    
     return (
       <div>
-        <Search onTermChange={this.handleTermChange} />
-        <GifList gifs={this.state.gifs} />
+        <GifsTemp gifs={ this.props.gifs } />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    gifs: state.gifs
+  };
+}
+
+export default connect(mapStateToProps)(App);
